@@ -8,6 +8,13 @@ FROM python:3.10-slim
 # Set working directory
 WORKDIR /app
 
+# Install system dependencies needed for compiling C extensions and healthcheck
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    build-essential \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
 # Copy requirements first (for cache optimization)
 COPY requirements.txt .
 
