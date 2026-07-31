@@ -76,7 +76,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install setuptools wheel numpy
+          pip install setuptools wheel "numpy<2.0"
           pip install --no-build-isolation -r requirements.txt
           pip install mypy types-requests
 
@@ -109,7 +109,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install setuptools wheel numpy
+          pip install setuptools wheel "numpy<2.0"
           pip install --no-build-isolation -r requirements.txt
           pip install -r requirements-dev.txt
       
