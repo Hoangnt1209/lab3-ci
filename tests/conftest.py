@@ -11,10 +11,10 @@ from fastapi.testclient import TestClient
 from app.main import app
 from app.model import MovieRatingModel
 
-
 # =============================================================================
 # API Client Fixtures
 # =============================================================================
+
 
 @pytest.fixture(scope="session")
 def test_client():
@@ -25,6 +25,7 @@ def test_client():
     """
     import app.main as main_module
     from app.model import MovieRatingModel
+
     try:
         if main_module.model is None or not main_module.model.is_loaded():
             main_module.model = MovieRatingModel()
@@ -37,6 +38,7 @@ def test_client():
 # =============================================================================
 # Model Fixtures
 # =============================================================================
+
 
 @pytest.fixture(scope="session")
 def trained_model():
@@ -54,6 +56,7 @@ def trained_model():
 # =============================================================================
 # Sample Data Fixtures
 # =============================================================================
+
 
 @pytest.fixture
 def sample_prediction_request():
@@ -103,6 +106,7 @@ def invalid_prediction_requests():
 # =============================================================================
 # Known Test Cases Fixtures
 # =============================================================================
+
 
 @pytest.fixture
 def known_user_movie_pairs():

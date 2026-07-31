@@ -11,11 +11,11 @@ import pytest
 from pydantic import ValidationError
 
 from app.schemas import (
+    BatchPredictionRequest,
+    HealthResponse,
+    PredictionItem,
     PredictionRequest,
     PredictionResponse,
-    HealthResponse,
-    BatchPredictionRequest,
-    PredictionItem,
 )
 
 
@@ -98,10 +98,7 @@ class TestPredictionResponse:
     def test_valid_response(self):
         """Test that valid response passes validation."""
         response = PredictionResponse(
-            user_id="196",
-            movie_id="242",
-            predicted_rating=3.5,
-            model_version="1.0.0"
+            user_id="196", movie_id="242", predicted_rating=3.5, model_version="1.0.0"
         )
         assert response.user_id == "196"
         assert response.movie_id == "242"
@@ -112,35 +109,23 @@ class TestPredictionResponse:
         """Test that rating below 1.0 raises ValidationError."""
         with pytest.raises(ValidationError):
             PredictionResponse(
-                user_id="196",
-                movie_id="242",
-                predicted_rating=0.5,
-                model_version="1.0.0"
+                user_id="196", movie_id="242", predicted_rating=0.5, model_version="1.0.0"
             )
 
     def test_rating_above_maximum_raises_error(self):
         """Test that rating above 5.0 raises ValidationError."""
         with pytest.raises(ValidationError):
             PredictionResponse(
-                user_id="196",
-                movie_id="242",
-                predicted_rating=5.5,
-                model_version="1.0.0"
+                user_id="196", movie_id="242", predicted_rating=5.5, model_version="1.0.0"
             )
 
     def test_rating_at_boundaries(self):
         """Test ratings at exact boundaries (1.0 and 5.0)."""
         resp_min = PredictionResponse(
-            user_id="196",
-            movie_id="242",
-            predicted_rating=1.0,
-            model_version="1.0.0"
+            user_id="196", movie_id="242", predicted_rating=1.0, model_version="1.0.0"
         )
         resp_max = PredictionResponse(
-            user_id="196",
-            movie_id="242",
-            predicted_rating=5.0,
-            model_version="1.0.0"
+            user_id="196", movie_id="242", predicted_rating=5.0, model_version="1.0.0"
         )
         assert resp_min.predicted_rating == 1.0
         assert resp_max.predicted_rating == 5.0

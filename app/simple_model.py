@@ -2,8 +2,8 @@
 Pure-Python fallback model for movie rating prediction.
 """
 
-from dataclasses import dataclass
 import hashlib
+from dataclasses import dataclass
 
 
 @dataclass(frozen=True)

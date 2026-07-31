@@ -118,8 +118,7 @@ class TestMinimumFunctionality:
     def test_predictions_not_all_same(self, trained_model, known_user_movie_pairs):
         """Test that not all predictions are the same value."""
         predictions = [
-            trained_model.predict(p["user_id"], p["movie_id"])
-            for p in known_user_movie_pairs
+            trained_model.predict(p["user_id"], p["movie_id"]) for p in known_user_movie_pairs
         ]
         assert len(set(predictions)) >= 1  # Verify valid prediction list structure
 

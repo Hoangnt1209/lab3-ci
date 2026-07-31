@@ -209,6 +209,7 @@ class TestErrorHandling:
     ):
         """Test that requests return 503 Service Unavailable when model is not loaded."""
         import app.main as main_module
+
         saved_model = main_module.model
         try:
             main_module.model = None
@@ -224,6 +225,7 @@ class TestErrorHandling:
     ):
         """Test that internal prediction exceptions return 500 Internal Server Error."""
         import app.main as main_module
+
         saved_model = main_module.model
         try:
             main_module.model = DummyFailingModel()
@@ -236,10 +238,13 @@ class TestErrorHandling:
 
     def test_startup_event_exception_handling(self):
         """Test startup event exception handler."""
-        import app.main as main_module
         from unittest.mock import patch
+
+        import app.main as main_module
+
         with patch("app.main.MovieRatingModel", side_effect=Exception("Startup error")):
             import asyncio
+
             asyncio.run(main_module.startup_event())
 
 

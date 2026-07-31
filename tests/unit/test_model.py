@@ -8,6 +8,7 @@ Run tests:
 """
 
 import pytest
+
 from app.model import MovieRatingModel
 
 
@@ -139,6 +140,7 @@ class TestModelFileHandling:
     def test_get_model_and_reset_model(self):
         """Test get_model singleton and reset_model helper functions."""
         from app.model import get_model, reset_model
+
         reset_model()
         m1 = get_model()
         m2 = get_model()
@@ -148,6 +150,7 @@ class TestModelFileHandling:
     def test_baseline_rating_model_fit(self):
         """Test BaselineRatingModel fit method."""
         from app.simple_model import BaselineRatingModel
+
         bm = BaselineRatingModel()
         assert bm.fit() is bm
 
