@@ -1,5 +1,37 @@
 # Lab 3: Testing & CI/CD for ML Systems
 
+![CI Pipeline Status Success](ci_success.png)
+
+## 📌 Báo Cáo Kết Quả Thực Hiện (Summary of Accomplishments)
+
+Dự án đã hoàn thành toàn bộ các hạng mục công việc được yêu cầu trong Lab 3 với tỷ lệ bao phủ mã nguồn (**Code Coverage**) đạt **100%** và tự động hóa toàn bộ quy trình CI/CD trên GitHub Actions:
+
+### 1. 🧪 Bộ Kiểm Thử Comprehensive Test Suite (96 Test Cases - 100% Coverage)
+- **Unit Tests (`tests/unit/`)**: 
+  - Kiểm thử toàn diện lớp `MovieRatingModel` (nạp model, dự đoán đơn, dự đoán theo batch, xử lý ngoại lệ file hỏng/thiếu, singleton pattern `get_model()`, `reset_model()`).
+  - Kiểm thử Pydantic schemas trong `app/schemas.py` (`PredictionRequest`, `PredictionResponse`, `BatchPredictionRequest`, `HealthResponse`).
+- **Integration Tests (`tests/integration/`)**: 
+  - Kiểm thử tích hợp các REST API endpoints của FastAPI (`GET /`, `GET /health`, `POST /predict`, `POST /predict/batch`, `GET /model/info`).
+  - Kiểm thử đầy đủ các mã lỗi HTTP standard: `404 Not Found`, `405 Method Not Allowed`, `422 Validation Error`, `500 Internal Server Error`, và `503 Service Unavailable`.
+- **Data Quality Tests (`tests/data/`)**: 
+  - Kiểm định chất lượng bộ dữ liệu MovieLens 100K (tính đầy đủ, giá trị null, phạm vi điểm đánh giá 1.0 - 5.0, tính duy nhất và phân bố ID người dùng/phim).
+- **Model Behavioral Tests (`tests/model/`)**: 
+  - Kiểm thử hành vi mô hình Machine Learning: Invariance tests (đầu vào giống nhau cho kết quả giống nhau), Directional tests, Minimum Functionality tests, Performance & Robustness với ép kiểu ID dạng String/Integer.
+
+### 2. ⚙️ Quy Trình Tự Động Hóa CI/CD (`.github/workflows/`)
+- **CI Pipeline (`ci.yml`)**:
+  - **Lint Code**: Kiểm tra định dạng code nghiêm ngặt bằng `black`, `isort`, và `flake8`.
+  - **Type Check**: Kiểm tra kiểu dữ liệu tĩnh với `mypy`.
+  - **Run Tests**: Tự động huấn luyện mô hình (`scripts/train_model.py` với cờ non-interactive `prompt=False`), thực thi 96 pytest test cases và xuất báo cáo coverage XML/HTML.
+  - **Build Docker Image**: Xây dựng Docker Image dựa trên `python:3.10-slim`, tích hợp các gói C build (`gcc`, `build-essential`) và `curl` để kiểm tra sức khỏe container.
+- **CD Pipeline (`cd.yml`)**:
+  - Tự động kích hoạt khi push Git Tag `v*`, đóng gói và đẩy Docker Image lên Docker Hub, khởi tạo GitHub Release.
+
+### 3. 🛡️ Chuẩn Mã Nguồn & Pre-commit Hooks (`.pre-commit-config.yaml`)
+- Tích hợp các công cụ kiểm soát chất lượng code tự động trước khi commit (`black`, `isort`, `flake8`, `mypy`, `pytest`).
+
+---
+
 ## Overview
 
 Implement comprehensive testing strategies and CI/CD pipelines for the movie rating prediction system to ensure quality and automate deployment.
