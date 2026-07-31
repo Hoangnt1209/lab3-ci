@@ -20,7 +20,7 @@ from app.model import MovieRatingModel
 def test_client():
     """
     Create a test client for API tests.
-    
+
     Scope: session - created once for all tests
     """
     import app.main as main_module
@@ -42,7 +42,7 @@ def test_client():
 def trained_model():
     """
     Load model once for all tests.
-    
+
     Scope: session - model is loaded once and reused
     """
     try:
